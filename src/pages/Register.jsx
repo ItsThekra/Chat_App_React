@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 
 export default function Register() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
@@ -11,17 +11,43 @@ export default function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
   const handleRegister = async () => {
-    if (form.username.trim() && form.email.trim() && form.password.trim()) {
-      try {
-        await axios.post("https://683a1f0b43bb370a8671e6c9.mockapi.io/users", form);
-        localStorage.setItem("user", form.username);
-        navigate("/chat");
-      } catch (err) {
-        alert("Registration failed");
-      }
-    } else {
-      alert("Please fill all fields");
+    const { username, email, password } = form;
+
+    if (!username.trim() || !email.trim() || !password.trim()) {
+      Swal.fire({ icon: 'warning', title: 'Missing Fields', text: 'All fields are required.' });
+      return;
+    }
+
+    if (username.length < 4) {
+      Swal.fire({ icon: 'warning', title: 'Username too short', text: 'Username must be at least 4 characters.' });
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      Swal.fire({ icon: 'warning', title: 'Invalid Email', text: 'Please enter a valid email address.' });
+      return;
+    }
+
+    if (password.length < 8) {
+      Swal.fire({ icon: 'warning', title: 'Weak Password', text: 'Password must be at least 8 characters.' });
+      return;
+    }
+
+    try {
+      await axios.post("https://683a1f0b43bb370a8671e6c9.mockapi.io/users", form);
+      Swal.fire({
+        icon: 'success',
+        title: 'Account created',
+        text: 'You can now login',
+      }).then(() => navigate("/"));
+    } catch (err) {
+      Swal.fire({ icon: 'error', title: 'Registration failed', text: 'Please try again later' });
     }
   };
 

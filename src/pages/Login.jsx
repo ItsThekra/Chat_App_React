@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 
 export default function Login() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -22,13 +24,13 @@ export default function Login() {
           localStorage.setItem("user", matched.username);
           navigate("/chat");
         } else {
-          alert("Invalid username or password");
+          Swal.fire({ icon: 'error', title: 'Login Failed', text: 'Invalid username or password' });
         }
       } catch (err) {
-        alert("Login failed");
+        Swal.fire({ icon: 'error', title: 'Error', text: 'Something went wrong' });
       }
     } else {
-      alert("Please fill all fields");
+      Swal.fire({ icon: 'warning', title: 'Missing Fields', text: 'Please fill all fields' });
     }
   };
 

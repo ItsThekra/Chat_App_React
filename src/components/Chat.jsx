@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import { useRef } from "react";
+import Swal from "sweetalert2";
 import ChatWindow from "./ChatWindow";
 import MessageInput from "./MessageInput";
 
 const API_URL = "https://683a1f0b43bb370a8671e6c9.mockapi.io/messages";
-
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
@@ -38,8 +37,18 @@ export default function Chat() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    navigate("/");
+    Swal.fire({
+      title: 'Are you sure you want to logout?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, logout',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("user");
+        navigate("/");
+      }
+    });
   };
 
   return (
