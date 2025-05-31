@@ -56,7 +56,8 @@ export default function Chat() {
   
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[url('/bg.jpg')] bg-cover px-2">
-      <div className="w-full max-w-4xl h-[80vh] rounded-xl bg-[rgba(17,25,40,0.75)] backdrop-blur-[19px] backdrop-saturate-[180%] p-6 text-white flex flex-col">
+      <div className="w-full max-w-4xl h-[80vh] rounded-xl bg-[rgba(17,25,40,0.75)] backdrop-blur-[19px] backdrop-saturate-[180%] p-6 text-white flex flex-col ">
+        
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl">Welcome {user}</h2>
           <button onClick={handleLogout} className="text-sm bg-red-500 px-3 py-1 rounded">Logout</button>
