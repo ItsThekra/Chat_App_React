@@ -4,9 +4,14 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 export default function Register() {
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+    // UseState:
+  const [form, setForm] = useState(
+    { username: "", 
+      email: "", 
+      password: "" });
+    // UseNavigate:
   const navigate = useNavigate();
-
+  //Take data from user:
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -16,6 +21,7 @@ export default function Register() {
     return re.test(email);
   };
 
+  // main function taht contain the conditions:
   const handleRegister = async () => {
     const { username, email, password } = form;
 
@@ -50,6 +56,10 @@ export default function Register() {
       Swal.fire({ icon: 'error', title: 'Registration failed', text: 'Please try again later' });
     }
   };
+
+
+
+
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-purple-300 to-blue-400">

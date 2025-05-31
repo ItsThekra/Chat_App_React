@@ -1,4 +1,3 @@
-// components/MessageInput.jsx
 import { useState } from "react";
 
 export default function MessageInput({ onSend }) {
@@ -11,6 +10,8 @@ export default function MessageInput({ onSend }) {
     }
   };
 
+
+  
   return (
     <div className="flex gap-2 mt-4">
       <input
